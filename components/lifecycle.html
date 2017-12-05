@@ -1,0 +1,37 @@
+<template id="lifecycle">
+    <p class="lifecycle">Nothing to see here, this component just logs lifecycle events to the console</p>
+</template>
+
+<script>
+    class Lifecycle extends HTMLElement {
+        constructor() {
+            super();
+
+            // Create a shadow root
+            const shadow = this.attachShadow({
+                mode: 'open'
+            });
+
+            // Clone template content into shadow root
+            const template = document.currentScript.ownerDocument.querySelector('#lifecycle');
+            shadow.appendChild(template.content.cloneNode(true));
+        }
+
+        // Custom element lifecycle methods
+        connectedCallback() {
+            console.info('Lifecycle component successfully inserted into document');
+        }
+        attributeChangedCallback(attributeName, oldValue, newValue, namespace) {
+            console.info(`${namespace}:${attributeName} has changed from ${oldValue} to ${newValue}`);
+        }
+        adoptedCallback(oldDocument, newDocument) {
+            console.info(`Lifecycle component has been adopted from ${oldDocument} into ${newDocument}`);
+        }
+        disconnectedCallback() {
+            console.info('Lifecycle component successfully removed from document');
+        }
+    }
+
+    // Define the new lifecycle element
+    customElements.define('ex-lifecycle', Lifecycle);
+</script>

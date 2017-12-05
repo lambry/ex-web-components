@@ -1,0 +1,58 @@
+<template id="hero">
+    <style>
+        .hero {
+            font-size: 30px;
+            padding: 20px;
+            margin: 20px auto;
+            display: block;
+            max-width: 1140px;
+        }
+        .hero-default {
+            color: rgb(40, 0, 66);
+            background-color: transparent;
+        }
+        .hero-outline {
+            color: rgb(40, 0, 66);
+            border: 2px solid;
+        }
+        .hero-fill {
+            color: #fff;
+            background-color: rgb(40, 0, 66);
+        }
+    </style>
+    <section class="hero">
+        <slot name="title">
+            <h1>Hero title</h1>
+        </slot>
+        <slot name="content">
+            <p>Hero content</p>
+        </slot>
+    </section>
+</template>
+
+<script>
+    class Hero extends HTMLElement {
+        constructor() {
+            super();
+
+            // Create a shadow root
+            const shadow = this.attachShadow({
+                mode: 'open'
+            });
+
+            // Get component display option
+            const display = this.getAttribute('display') || 'default';
+
+            // Clone template content into shadow root
+            const template = document.currentScript.ownerDocument.querySelector('#hero');
+            shadow.appendChild(template.content.cloneNode(true));
+
+            // Get hero element and add classes
+            const hero = shadow.querySelector('.hero')
+            hero.classList.add(`hero-${display}`);
+        }
+    }
+
+    // Define the new hero element
+    customElements.define('ex-hero', Hero);
+</script>

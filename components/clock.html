@@ -1,0 +1,58 @@
+<template id="clock">
+    <style>
+        .clock {
+            font-size: 60px;
+            padding: 20px;
+            margin: 20px;
+            display: inline-block;
+        }
+        .clock-default {
+            color: rgb(40, 0, 66);
+            background-color: transparent;
+        }
+        .clock-outline {
+            color: rgb(40, 0, 66);
+            border: 2px solid;
+        }
+        .clock-fill {
+            color: #fff;
+            background-color: rgb(40, 0, 66);
+        }
+    </style>
+    <time class="clock"></time>
+</template>
+
+<script>
+    class Clock extends HTMLElement {
+        constructor() {
+            super();
+
+            // Create a shadow root
+            const shadow = this.attachShadow({
+                mode: 'open'
+            });
+
+            // Get component options
+            const options = {
+                'display': this.getAttribute('display') || 'default',
+                'hours': this.getAttribute('hours') === '24' ? false : true
+            }
+
+            // Clone template content into shadow root
+            const template = document.currentScript.ownerDocument.querySelector('#clock');
+            shadow.appendChild(template.content.cloneNode(true));
+
+            // Get clock element and add classes and time
+            const clock = shadow.querySelector('.clock')
+            clock.classList.add(`clock-${options.display}`);
+            clock.innerHTML = new Date().toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: options.hours
+            });
+        }
+    }
+
+    // Define the new clock element
+    customElements.define('ex-clock', Clock);
+</script>

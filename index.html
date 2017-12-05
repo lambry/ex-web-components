@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="import" href="components/clock.html">
+    <link rel="import" href="components/hero.html">
+    <link rel="import" href="components/lifecycle.html">
+    <title>Ex Web Components</title>
+</head>
+<body style="text-align: center">
+
+    <!-- Ex Clock Component -->
+    <ex-clock hours="24"></ex-clock>
+    <ex-clock display="outline"></ex-clock>
+    <ex-clock display="fill"></ex-clock>
+
+    <!-- Ex Hero Component -->
+    <ex-hero display="outline"></ex-hero>
+    <ex-hero display="fill">
+        <h1 slot="title">Lorem Ipsum</h1>
+        <p slot="content">Vestibulum eleifend porttitor mollis, ut tempus eros vitae enim rhoncus tempus sit amet id quam.</p>
+    </ex-hero>
+    
+    <!-- Ex Lifecycle Component -->
+    <ex-lifecycle></ex-lifecycle>
+
+</body>
+</html>
